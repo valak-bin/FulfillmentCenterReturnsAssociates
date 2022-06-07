@@ -25,8 +25,8 @@ SqlCrud sql = new SqlCrud(GetConnectionString());
 
 // CRUD Calls
 
-//ReadAllAssociates(sql);
-ReadAssociate(sql, 2);
+ReadAllAssociates(sql);
+//ReadAssociate(sql, 2);
 //CreateNewAssociate(sql);
 //UpdateContact(sql);
 
