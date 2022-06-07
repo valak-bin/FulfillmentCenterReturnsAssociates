@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Shift]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [ShiftName] CHAR NOT NULL
+)
