@@ -1,10 +1,7 @@
 ﻿
-
 using DataAccessLibrary;
 using DataAccessLibrary.Models;
 using Microsoft.Extensions.Configuration;
-
-
 
 static string GetConnectionString(string connectionStringName = "Default")
 {
@@ -21,24 +18,25 @@ static string GetConnectionString(string connectionStringName = "Default")
     return output;
 }
 
-SqlCrud sql = new SqlCrud(GetConnectionString());
+SqliteCrud sql = new SqliteCrud(GetConnectionString());
 
 // CRUD Calls
 
-ReadAllAssociates(sql);
+//ReadAllAssociates(sql);
 //ReadAssociate(sql, 2);
 //CreateNewAssociate(sql);
-//UpdateContact(sql);
+UpdateContact(sql);
+ReadAllAssociates(sql);
 
 // Remove Natasha's Location // AssociateId = 2007, LocationId = 1008
 //RemoveLocationFromContact(sql, 2007, 1008);
 
 Console.WriteLine();
-Console.WriteLine("Done processing Sql Server.");
+Console.WriteLine("Done processing Sqlite.");
 
 // CRUD Methods
 
-static void ReadAllAssociates(SqlCrud sql)
+static void ReadAllAssociates(SqliteCrud sql)
 {
     var rows = sql.GetAllAssociates();
 
@@ -48,7 +46,7 @@ static void ReadAllAssociates(SqlCrud sql)
     }
 }
 
-static void ReadAssociate(SqlCrud sql, int associateId)
+static void ReadAssociate(SqliteCrud sql, int associateId)
 {
     var associate = sql.GetFullAssociateById(associateId);
 
@@ -65,7 +63,7 @@ static void ReadAssociate(SqlCrud sql, int associateId)
     }
 }
 
-static void CreateNewAssociate(SqlCrud sql)
+static void CreateNewAssociate(SqliteCrud sql)
 {
     FullAssociateModel user = new FullAssociateModel()
     {
@@ -76,14 +74,14 @@ static void CreateNewAssociate(SqlCrud sql)
         }
     };
 
-    user.Locations.Add(new LocationModel {LocationName = "S.H.I.E.L.D Headquarters Merchandise Returns" });
+    user.Locations.Add(new LocationModel { LocationName = "S.H.I.E.L.D Headquarters Merchandise Returns" });
 
-    user.Shifts.Add(new ShiftModel {ShiftName = "A" });
+    user.Shifts.Add(new ShiftModel { ShiftName = "A" });
 
     sql.CreateAssociate(user);
 }
 
-void UpdateContact(SqlCrud sql)
+void UpdateContact(SqliteCrud sql)
 {
     BasicAssociateModel associate = new BasicAssociateModel()
     {
@@ -95,7 +93,7 @@ void UpdateContact(SqlCrud sql)
     sql.UpdateContactName(associate);
 }
 
-static void RemoveLocationFromContact(SqlCrud sql, int associateId, int locationId)
+static void RemoveLocationFromContact(SqliteCrud sql, int associateId, int locationId)
 {
     sql.RemoveLocationFromAssociate(associateId, locationId);
 }
